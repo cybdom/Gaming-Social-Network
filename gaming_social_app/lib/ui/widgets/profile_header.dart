@@ -6,15 +6,13 @@ import 'package:provider/provider.dart';
 class ProfileHeader extends StatefulWidget {
   final AsyncSnapshot snapshot;
 
-  const ProfileHeader({Key key, @required this.snapshot}) : super(key: key);
+  const ProfileHeader({Key? key, required this.snapshot}) : super(key: key);
   @override
   _ProfileHeaderState createState() => _ProfileHeaderState();
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-
   int _currentCoverIndex = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +27,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                   _currentCoverIndex = i;
                 });
               },
-              itemCount: widget.snapshot.data.post.length,
+              itemCount: widget.snapshot.data!.post.length,
               itemBuilder: (ctx, i) {
                 return Image.network(
-                  "${widget.snapshot.data.post[i].content}",
+                  "${widget.snapshot.data!.post[i].content}",
                   fit: BoxFit.cover,
                 );
               },
@@ -43,8 +41,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 15.0, vertical: 11.0),
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 11.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
@@ -69,23 +66,21 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                         color: greenColor,
                       ),
                       onPressed: () {
-                        Provider.of<MyNavigation>(context, listen: false).goHome();
+                        Provider.of<MyNavigation>(context, listen: false)
+                            .goHome();
                       },
                     ),
                   ),
                   Text(
-                    "${widget.snapshot.data.username}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .title
-                        .copyWith(
+                    "${widget.snapshot.data!.username}",
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                      "${widget.snapshot.data.profilePicture}",
+                      "${widget.snapshot.data!.profilePicture}",
                     ),
                   ),
                 ],
@@ -112,8 +107,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                 children: <Widget>[
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
@@ -121,17 +115,16 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                               "$usertype",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline
-                                  .copyWith(
+                                  .headlineSmall
+                                  ?.copyWith(
                                     color: greenColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
                             SizedBox(width: 15),
-                            widget.snapshot.data.verified
+                            widget.snapshot.data!.verified
                                 ? Container(
-                                    padding:
-                                        const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     decoration: BoxDecoration(
                                         color: Colors.blue,
                                         shape: BoxShape.circle),
@@ -144,11 +137,11 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                           ],
                         ),
                         Text(
-                          "${widget.snapshot.data.fullname}",
+                          "${widget.snapshot.data!.fullname}",
                           style: Theme.of(context)
                               .textTheme
-                              .display1
-                              .copyWith(
+                              .headlineMedium
+                              ?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -156,21 +149,20 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                 child: Text(
                                   "Follow",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .button
-                                      .copyWith(
-                                          fontWeight:
-                                              FontWeight.bold),
+                                      .labelLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 onPressed: () {},
-                                color: greenColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(25.0),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: greenColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                  ),
                                 ),
                               ),
                             ),
@@ -178,11 +170,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                             GestureDetector(
                               onTap: () {},
                               child: Container(
-                                padding:
-                                    const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(5.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Colors.grey[200],
+                                    color: Colors.grey.shade200,
                                   ),
                                   shape: BoxShape.circle,
                                 ),
@@ -194,24 +185,20 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                             ),
                             Expanded(
                               child: Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: List.generate(
-                                    widget.snapshot.data.post.length,
-                                    (f) {
+                                    widget.snapshot.data!.post.length, (f) {
                                   return Container(
                                     height: 9,
                                     width: 9,
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 3.0),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 3.0),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color:
-                                          _currentCoverIndex == f
-                                              ? greenColor
-                                              : Colors.white,
+                                      color: _currentCoverIndex == f
+                                          ? greenColor
+                                          : Colors.white,
                                     ),
                                   );
                                 }),

@@ -11,7 +11,9 @@ class SinglePostWidget extends StatelessWidget {
   final int i;
   final AsyncSnapshot postSnapshot;
   const SinglePostWidget({
-    Key key,@required this.i, @required this.postSnapshot,
+    Key? key,
+    required this.i,
+    required this.postSnapshot,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class SinglePostWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Provider.of<MyNavigation>(context, listen: false)
-            .goProfile(id: postSnapshot.data[i].userId);
+            .goProfile(id: postSnapshot.data![i].userId);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -37,15 +39,14 @@ class SinglePostWidget extends StatelessWidget {
               children: <Widget>[
                 FutureBuilder<UserModel>(
                   future: getSpecificUser(
-                    postSnapshot.data[i].userId,
+                    postSnapshot.data![i].userId,
                     // loggedInUserID
                   ),
                   builder: (ctx, singleUserSnapshot) {
                     if (singleUserSnapshot.hasData) {
                       return UserProfilePicture(
-                        userId: singleUserSnapshot.data.id,
-                        profilePicture: singleUserSnapshot
-                            .data.profilePicture,
+                        userId: singleUserSnapshot.data!.id,
+                        profilePicture: singleUserSnapshot.data!.profilePicture,
                       );
                     } else {
                       return CircleAvatar();
@@ -55,24 +56,22 @@ class SinglePostWidget extends StatelessWidget {
                 SizedBox(width: 15),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       FutureBuilder<UserModel>(
                         future: getSpecificUser(
-                          postSnapshot.data[i].userId,
+                          postSnapshot.data![i].userId,
                         ),
                         builder: (ctx, singleUserSnapshot) {
                           if (singleUserSnapshot.hasData) {
                             return Text(
-                              "${singleUserSnapshot.data.username}",
+                              "${singleUserSnapshot.data!.username}",
                               style: Theme.of(context)
                                   .textTheme
-                                  .title
-                                  .copyWith(
+                                  .titleLarge
+                                  ?.copyWith(
                                     color: Colors.white,
-                                    fontWeight:
-                                        FontWeight.bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                             );
                           } else {
@@ -81,17 +80,15 @@ class SinglePostWidget extends StatelessWidget {
                         },
                       ),
                       FutureBuilder<Game>(
-                        future: getSpecificGame(
-                            postSnapshot.data[i].gameId),
+                        future: getSpecificGame(postSnapshot.data![i].gameId),
                         builder: (ctx, singleGameSnapshot) {
                           if (singleGameSnapshot.hasData) {
                             return Text(
-                              "${singleGameSnapshot.data.title}",
+                              "${singleGameSnapshot.data!.title}",
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle
-                                  .copyWith(
-                                      color: Colors.grey),
+                                  .titleSmall
+                                  ?.copyWith(color: Colors.grey),
                             );
                           } else {
                             return Text("Loading...");
@@ -111,26 +108,22 @@ class SinglePostWidget extends StatelessWidget {
               ],
             ),
             Container(
-              margin:
-                  const EdgeInsets.symmetric(vertical: 15.0),
+              margin: const EdgeInsets.symmetric(vertical: 15.0),
               width: double.infinity,
               height: MediaQuery.of(context).size.height / 4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
                 child: Image.network(
-                  "${postSnapshot.data[i].media[0].content}",
+                  "${postSnapshot.data![i].media[0].content}",
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             Text(
-              "${postSnapshot.data[i].title}",
+              "${postSnapshot.data![i].title}",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle
-                  .copyWith(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -138,51 +131,38 @@ class SinglePostWidget extends StatelessWidget {
             SizedBox(height: 15),
             Row(
               children: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
                   onPressed: () {},
                   icon: Icon(
                     Icons.favorite_border,
                     color: greenColor,
                   ),
                   label: Text(
-                    "${postSnapshot.data[i].likes}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        .copyWith(
-                            color: greenColor,
-                            fontWeight: FontWeight.bold),
+                    "${postSnapshot.data![i].likes}",
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: greenColor, fontWeight: FontWeight.bold),
                   ),
                 ),
-                FlatButton.icon(
+                TextButton.icon(
                   onPressed: () {},
                   icon: Icon(
                     Icons.comment,
                     color: Colors.white,
                   ),
                   label: Text(
-                    "${postSnapshot.data[i].comments.length}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        .copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                    "${postSnapshot.data![i].comments.length}",
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Expanded(
                   child: Text(
                     timeago.format(
-                        DateTime.parse(
-                            "${postSnapshot.data[i].date}"),
+                        DateTime.parse("${postSnapshot.data![i].date}"),
                         locale: "en"),
                     textAlign: TextAlign.end,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle
-                        .copyWith(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
                   ),
                 )
               ],

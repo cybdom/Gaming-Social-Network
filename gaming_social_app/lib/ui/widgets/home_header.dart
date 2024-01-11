@@ -5,7 +5,7 @@ import 'package:gaming_social_app/ui/widgets/userProfilePicture.dart';
 class HomeHeader extends StatelessWidget {
   final Future<UserModel> userFuture;
 
-  const HomeHeader({Key key,@required this.userFuture}) : super(key: key);
+  const HomeHeader({Key? key, required this.userFuture}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,7 +20,7 @@ class HomeHeader extends StatelessWidget {
         ),
         Text(
           "Cybdom",
-          style: Theme.of(context).textTheme.title.copyWith(
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 color: Colors.white,
               ),
         ),
@@ -28,10 +28,10 @@ class HomeHeader extends StatelessWidget {
           future: userFuture,
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data.profilePicture);
+              print(snapshot.data!.profilePicture);
               return UserProfilePicture(
-                userId: snapshot.data.id,
-                profilePicture: snapshot.data.profilePicture,
+                userId: snapshot.data!.id,
+                profilePicture: snapshot.data!.profilePicture,
               );
             } else {
               return Center(

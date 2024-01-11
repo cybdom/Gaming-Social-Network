@@ -3,9 +3,10 @@ import 'package:gaming_social_app/models/game.dart';
 
 class GamesList extends StatelessWidget {
   const GamesList({
-    Key key,
-    @required Future<List<Game>> games,
-  }) : _games = games, super(key: key);
+    Key? key,
+    required Future<List<Game>> games,
+  })  : _games = games,
+        super(key: key);
 
   final Future<List<Game>> _games;
 
@@ -20,18 +21,18 @@ class GamesList extends StatelessWidget {
           if (snapshot.hasData) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data!.length,
               itemBuilder: (ctx, i) {
                 return Container(
                   alignment: Alignment.center,
-                  margin: i != snapshot.data.length
+                  margin: i != snapshot.data!.length
                       ? const EdgeInsets.only(right: 15)
                       : EdgeInsets.zero,
                   child: GestureDetector(
                     onTap: () {},
                     child: Text(
-                      "${snapshot.data[i].title}",
-                      style: Theme.of(context).textTheme.button.copyWith(
+                      "${snapshot.data![i].title}",
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -50,4 +51,3 @@ class GamesList extends StatelessWidget {
     );
   }
 }
-

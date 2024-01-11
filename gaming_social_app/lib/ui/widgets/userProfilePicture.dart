@@ -3,11 +3,12 @@ import 'package:gaming_social_app/global.dart';
 import 'package:gaming_social_app/models/mynavigation.dart';
 import 'package:provider/provider.dart';
 
-
 class UserProfilePicture extends StatelessWidget {
   final String profilePicture;
   final String userId;
-  const UserProfilePicture({Key key,@required this.profilePicture,@required this.userId}) : super(key: key);
+  const UserProfilePicture(
+      {Key? key, required this.profilePicture, required this.userId})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

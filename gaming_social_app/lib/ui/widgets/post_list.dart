@@ -4,9 +4,10 @@ import 'package:gaming_social_app/ui/widgets/single_post.dart';
 
 class PostsList extends StatelessWidget {
   const PostsList({
-    Key key,
-    @required Future<List<Post>> posts,
-  }) : _posts = posts, super(key: key);
+    Key? key,
+    required Future<List<Post>> posts,
+  })  : _posts = posts,
+        super(key: key);
 
   final Future<List<Post>> _posts;
 
@@ -18,7 +19,7 @@ class PostsList extends StatelessWidget {
         builder: (ctx, postSnapshot) {
           if (postSnapshot.hasData) {
             return ListView.builder(
-              itemCount: postSnapshot.data.length,
+              itemCount: postSnapshot.data!.length,
               itemBuilder: (ctx, i) {
                 return SinglePostWidget(
                   i: i,

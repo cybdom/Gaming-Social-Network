@@ -10,10 +10,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<List<Game>> _games;
-  Future<List<Post>> _posts;
-  Future<UserModel> _user;
-  Future<List<UserModel>> _users;
+  late Future<List<Game>> _games;
+  late Future<List<Post>> _posts;
+  late Future<UserModel> _user;
+  late Future<List<UserModel>> _users;
   @override
   void initState() {
     super.initState();
@@ -34,7 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: <Widget>[
-                HomeHeader(userFuture: _user,),
+                HomeHeader(
+                  userFuture: _user,
+                ),
                 FriendsList(users: _users),
               ],
             ),
@@ -51,4 +53,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

@@ -4,17 +4,6 @@ class Post {
   final List<CommentModel> comments;
   final List<MediaModel> media;
 
-  Post(
-      {this.title,
-      this.id,
-      this.content,
-      this.userId,
-      this.gameId,
-      this.date,
-      this.likes,
-      this.comments,
-      this.media});
-
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       id: json['_id'],
@@ -31,17 +20,22 @@ class Post {
       userId: json['userId'],
     );
   }
+
+  Post(
+      {required this.title,
+      required this.content,
+      required this.userId,
+      required this.gameId,
+      required this.date,
+      required this.id,
+      required this.likes,
+      required this.comments,
+      required this.media});
 }
 
 class MediaModel {
   final String content, id;
   final int mediatype;
-
-  MediaModel({
-    this.content,
-    this.id,
-    this.mediatype,
-  });
 
   factory MediaModel.fromJson(Map<String, dynamic> json) {
     return MediaModel(
@@ -49,16 +43,19 @@ class MediaModel {
         content: json['content'],
         mediatype: json['mediatype']);
   }
+
+  MediaModel(
+      {required this.content, required this.id, required this.mediatype});
 }
 
 class CommentModel {
   final String content, user;
-
-  CommentModel({this.content, this.user});
   factory CommentModel.fromJson(Map<String, dynamic> json) {
     return CommentModel(
       content: json['content'],
       user: json['user'],
     );
   }
+
+  CommentModel({required this.content, required this.user});
 }

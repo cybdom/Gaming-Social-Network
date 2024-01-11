@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gaming_social_app/global.dart';
-import 'package:gaming_social_app/models/models.dart';
 import 'package:gaming_social_app/models/mynavigation.dart';
-import 'package:gaming_social_app/service/api.dart';
 import 'package:gaming_social_app/ui/screens/screens.dart';
 import 'package:provider/provider.dart';
-
-import 'models/user.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -19,11 +15,12 @@ void main() => runApp(
       ),
     );
 Future getUser(String id) async {
-  final response = await http.post('http://192.168.1.102/users/ids',
-      body: jsonEncode(
-        {'id': '$id'},
-      ),
-      headers: {'Content-Type': 'application/json'});
+  final response =
+      await http.post(Uri.http('http://192.168.1.102', '/users/ids'),
+          body: jsonEncode(
+            {'id': '$id'},
+          ),
+          headers: {'Content-Type': 'application/json'});
   print(response.body);
 }
 

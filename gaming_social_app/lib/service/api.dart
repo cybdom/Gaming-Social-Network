@@ -6,7 +6,7 @@ final String _baseUrl = "http://192.168.1.102";
 
 // Functions for getting list of data
 Future<List<Post>> getPosts() async {
-  final response = await http.get('$_baseUrl/posts');
+  final response = await http.get(Uri.http(_baseUrl, '/posts'));
 
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -17,7 +17,7 @@ Future<List<Post>> getPosts() async {
 }
 
 Future<List<Game>> getGames() async {
-  final response = await http.get('$_baseUrl/games');
+  final response = await http.get(Uri.http(_baseUrl, '/games'));
 
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -28,7 +28,7 @@ Future<List<Game>> getGames() async {
 }
 
 Future<List<UserModel>> getUsers() async {
-  final response = await http.get('$_baseUrl/users');
+  final response = await http.get(Uri.http(_baseUrl, '/users'));
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
     return parsed.map<UserModel>((json) => UserModel.fromJson(json)).toList();
@@ -41,7 +41,7 @@ Future<List<UserModel>> getUsers() async {
 
 Future<UserModel> getSpecificUser(String id) async {
   final response = await http.post(
-    'http://192.168.1.102/users/id',
+    Uri.http(_baseUrl, '/users/id'),
     body: json.encode(
       {'id': '$id'},
     ),
@@ -57,7 +57,7 @@ Future<UserModel> getSpecificUser(String id) async {
 
 Future<Game> getSpecificGames(String id) async {
   final response = await http.post(
-    '$_baseUrl/games/id',
+    Uri.http(_baseUrl, '/games/id'),
     body: json.encode(
       {'id': '$id'},
     ),
@@ -73,7 +73,7 @@ Future<Game> getSpecificGames(String id) async {
 
 Future<Game> getSpecificGame(String id) async {
   final response = await http.post(
-    '$_baseUrl/games/id',
+    Uri.http(_baseUrl, '/games/id'),
     body: json.encode(
       {'id': '$id'},
     ),
@@ -89,7 +89,7 @@ Future<Game> getSpecificGame(String id) async {
 
 Future<Post> getSpecificPost(String id) async {
   final response = await http.post(
-    '$_baseUrl/posts/id',
+    Uri.http(_baseUrl, '/posts/id'),
     body: json.encode(
       {'id': '$id'},
     ),

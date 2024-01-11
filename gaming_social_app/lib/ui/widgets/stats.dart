@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../global.dart';
 
-
 class StatsWidget extends StatelessWidget {
   final AsyncSnapshot snapshot;
   const StatsWidget({
-    Key key, @required this.snapshot,
+    Key? key,
+    required this.snapshot,
   }) : super(key: key);
 
   @override
@@ -21,21 +21,15 @@ class StatsWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  "${snapshot.data.followerscount}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline
-                      .copyWith(
+                  "${snapshot.data!.followerscount}",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 Text(
                   "Followers",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subhead
-                      .copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: greenColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -47,21 +41,15 @@ class StatsWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  "${snapshot.data.followingcount}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline
-                      .copyWith(
+                  "${snapshot.data!.followingcount}",
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 Text(
                   "Following",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subhead
-                      .copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: greenColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -73,22 +61,16 @@ class StatsWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  "${snapshot.data.postscount}",
+                  "${snapshot.data!.postscount}",
                   // "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline
-                      .copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 Text(
                   "Posts",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subhead
-                      .copyWith(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: greenColor,
                         fontWeight: FontWeight.bold,
                       ),

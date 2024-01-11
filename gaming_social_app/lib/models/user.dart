@@ -4,18 +4,6 @@ class UserModel {
   final int followerscount, followingcount, postscount;
   final List<UserPostModel> post;
 
-  UserModel({
-    this.profilePicture,
-    this.id,
-    this.fullname,
-    this.username,
-    this.verified,
-    this.followerscount,
-    this.followingcount,
-    this.postscount,
-    this.post,
-  });
-
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['_id'],
@@ -31,18 +19,26 @@ class UserModel {
       postscount: json['posts_count'],
     );
   }
+
+  UserModel(
+      {required this.fullname,
+      required this.username,
+      required this.id,
+      required this.profilePicture,
+      required this.verified,
+      required this.followerscount,
+      required this.followingcount,
+      required this.postscount,
+      required this.post});
 }
 
 class UserPostModel {
   final String content;
   final int type;
 
-  UserPostModel({
-    this.content,
-    this.type,
-  });
-
   factory UserPostModel.fromJson(Map<String, dynamic> json) {
     return UserPostModel(content: json['content'], type: json['type']);
   }
+
+  UserPostModel({required this.content, required this.type});
 }

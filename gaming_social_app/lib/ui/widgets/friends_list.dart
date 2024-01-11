@@ -4,8 +4,8 @@ import 'package:gaming_social_app/ui/widgets/userProfilePicture.dart';
 
 class FriendsList extends StatelessWidget {
   const FriendsList({
-    Key key,
-    @required Future<List<UserModel>> users,
+    Key? key,
+    required Future<List<UserModel>> users,
   })  : _users = users,
         super(key: key);
 
@@ -21,15 +21,15 @@ class FriendsList extends StatelessWidget {
           if (snapshot.hasData) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data!.length,
               itemBuilder: (ctx, i) {
                 return Container(
-                  margin: i != snapshot.data.length
+                  margin: i != snapshot.data!.length
                       ? const EdgeInsets.only(right: 15)
                       : EdgeInsets.zero,
                   child: UserProfilePicture(
-                    userId: snapshot.data[i].id,
-                    profilePicture: snapshot.data[i].profilePicture,
+                    userId: snapshot.data![i].id,
+                    profilePicture: snapshot.data![i].profilePicture,
                   ),
                 );
               },

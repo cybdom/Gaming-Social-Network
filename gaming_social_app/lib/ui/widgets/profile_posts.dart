@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gaming_social_app/global.dart';
 
-
 class ProfilePostsWidget extends StatelessWidget {
   final AsyncSnapshot snapshot;
   const ProfilePostsWidget({
-    Key key,
-    @required this.snapshot,
+    Key? key,
+    required this.snapshot,
   }) : super(key: key);
 
   @override
@@ -26,7 +25,7 @@ class ProfilePostsWidget extends StatelessWidget {
                     onTap: () {},
                     child: Text(
                       "${postTypes[i]}",
-                      style: Theme.of(context).textTheme.button.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Colors.white,
                           ),
                     ),
@@ -37,7 +36,7 @@ class ProfilePostsWidget extends StatelessWidget {
           ),
           Divider(),
           GridView.builder(
-            itemCount: snapshot.data.post.length,
+            itemCount: snapshot.data!.post.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -48,7 +47,7 @@ class ProfilePostsWidget extends StatelessWidget {
               return GestureDetector(
                 onTap: () {},
                 child: Image.network(
-                  "${snapshot.data.post[i].content}",
+                  "${snapshot.data!.post[i].content}",
                   fit: BoxFit.cover,
                 ),
               );
